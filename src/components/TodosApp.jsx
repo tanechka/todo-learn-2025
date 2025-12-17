@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TodoInput from '../components/TodoInput';
 import TodoAddButton from '../components/TodoAddButton';
 import TodoList from '../components/TodoList';
@@ -32,6 +32,20 @@ function TodosApp() {
         setTodos(updatedTodos);
     };
 
+    const addTodo = () => {
+        if(todoText.trim()) {
+            setTodos([
+                ...todos,
+                {
+                    id: todos?.length,
+                    text: todoText,
+                    done: false,
+                }
+            ])
+            setTodoText('');
+        }
+    }
+
     return (
         <div className='app'>
             <h1>Todo List</h1>
@@ -51,10 +65,7 @@ function TodosApp() {
                 setTodoText={setTodoText}
             />
             <TodoAddButton
-                todos={todos}
-                todoText={todoText}
-                setTodos={setTodos}
-                setTodoText={setTodoText}
+                addTodo={addTodo}
             />
         </div>
     );

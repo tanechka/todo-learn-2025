@@ -2,6 +2,10 @@ import TodoCheckbox from './TodoCheckbox';
 import TodoDelete from './TodoDelete';
 
 const TodoList = ({ todos, onToggle, onDelete }) => {
+    if (!todos.length) {
+        return <p className="empty-message">Нет задач</p>;
+    }
+
     return <>
         {todos.map((todo) =>
             <div key={todo.id}>
