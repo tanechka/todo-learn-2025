@@ -1,7 +1,57 @@
-/* src/App.css */
-.app {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+/* Фильтры */
+.todo-filter {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Задачи */
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s;
+}
+
+.todo-item:hover {
+  background: #f9f9f9;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-text {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.delete-btn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.delete-btn:hover {
+  opacity: 1;
 }

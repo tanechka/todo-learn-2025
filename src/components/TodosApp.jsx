@@ -1,30 +1,39 @@
-// src/App.jsx
-import { useState, useEffect } from 'react';
-import './App.css';
-import TodoInput from './components/TodoInput';
-import TodoAddButton from './components/TodoAddButton';
-import TodoList from './components/TodoList';
-import TodoFilterButtons from './components/TodoFilterButtons';
+import { useState } from 'react';
+import TodoInput from '../components/TodoInput';
+import TodoAddButton from '../components/TodoAddButton';
+import TodoList from '../components/TodoList';
+import TodoFilterButtons from '../components/TodoFilterButtons';
+import FILTERS from './todoConst';
 
-function App() {
+const getFilteredTodos = (filter, todos) => {
+    switch (filter) {
+        case FILTERS.ACTIVE:
+            return todos?.filter(todo => !todo.completed);
+        case FILTERS.COMPLETED:
+            return todos?.filter(todo => todo.completed);
+        default:
+            return todos;
+    }
+};
+
+
+function TodosApp() {
     const [todos, setTodos] = useState([]);
     const [todoText, setTodoText] = useState('');
-    const [filteredTodos, setFilteredTodos] = useState(todos);
+    const [filter, setFilter] = useState(FILTERS.ALL);
 
-    useEffect(() => {
-        setFilteredTodos(todos);
-    }, [todos]);
 
     return (
-        <div className="app">
+        <div className='app'>
             <h1>Todo List</h1>
             <TodoFilterButtons
                 todos={todos}
-                setFilteredTodos={setFilteredTodos}
+                setFilter={setFilter}
+                activeCount={getFilteredTodos(FILTERS.ACTIVE, todos)?.length}
+                completedCount={getFilteredTodos(FILTERS.COMPLETED, todos)?.length}
             />
             <TodoList
-                filteredTodos={filteredTodos}
-                todos={todos}
+                todos={getFilteredTodos(filter, todos)}
                 setTodos={setTodos}
             />
             <TodoInput
@@ -32,13 +41,13 @@ function App() {
                 setTodoText={setTodoText}
             />
             <TodoAddButton
-                setTodos={setTodos}
                 todos={todos}
                 todoText={todoText}
+                setTodos={setTodos}
                 setTodoText={setTodoText}
             />
         </div>
     );
 }
 
-export default App;
+export default TodosApp;

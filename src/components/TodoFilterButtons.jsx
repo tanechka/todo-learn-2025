@@ -1,32 +1,22 @@
-const statusTodosCount = (status) => {
-    return getTodosStatus(status).length;
-}
+import FILTERS from './todoConst';
 
-const getTodosStatus = (status, todos) => {
-    return todos.filter((item) => item.done === status);
-}
-
-const STATUS = {
-    DONE: true,
-}
-
-const TodoFilterButtons = ({setFilteredTodos, todos }) => {
-    return <>
+const TodoFilterButtons = ({ todos, setFilter, activeCount, completedCount }) => {
+    return <div>
         <button onClick={() => {
-            setFilteredTodos(todos);
+            setFilter(FILTERS.ALL);
         }}>
-            Все {todos.length}
+            Все {todos?.length}
         </button>
         <button onClick={() => {
-            setFilteredTodos(getTodosStatus(!STATUS.DONE, todos));
+            setFilter(FILTERS.ACTIVE);
          }}>
-            Активные {statusTodosCount(!STATUS.DONE)}
+            Активные {activeCount}
         </button>
         <button onClick={() => {
-            setFilteredTodos(getTodosStatus(STATUS.DONE, todos));
+            setFilter(FILTERS.COMPLETED);
         }}>
-            Выполненные {statusTodosCount(STATUS.DONE)}
+            Выполненные {completedCount}
         </button>
-    </>
+    </div>
 }
 export default TodoFilterButtons;

@@ -6,7 +6,7 @@ const TodoAddButton = ({setTodos, todos, todoText, setTodoText }) => {
                 {
                     id: todos?.length,
                     text: todoText,
-                    done: false
+                    done: false,
                 }
             ])
             setTodoText('');

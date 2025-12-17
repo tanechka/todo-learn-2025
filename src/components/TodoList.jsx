@@ -1,22 +1,25 @@
-const TodoList = ({filteredTodos, todos, setTodos}) => {
+import TodoCheckbox from './TodoCheckbox';
+import TodoDelete from './TodoDelete';
+
+const TodoList = ({ todos, setTodos}) => {
+    const handleToggle = (todo) => {
+        const updatedTodos = todos.map((item) => item.id === todo.id ? {...item, completed: !item.completed } : item);
+        setTodos(updatedTodos);
+    };
+
+    const handleDelete = (todo) => {
+        const updatedTodos = todos.filter((item) => item.id !== todo.id);
+        setTodos(updatedTodos);
+    };
+
     return <>
-        {filteredTodos?.map((todo) =>
+        {todos.map((todo) =>
             <div key={todo.id}>
-                <input  type='checkbox'
-                        onChange={()=> {
-                            let checkedItem = todos.map(
-                                (item) =>
-                                    item.id === todo.id ? {...item, done: !item.done } : item
-                                )
-                            setTodos(checkedItem)
-                        }}
-                        checked={todo.done}
-                />
-                    {todo.text}
-                <br />
+               <TodoCheckbox onToggle={() => handleToggle(todo)} todo={todo} />
+                {todo.text}
+                <TodoDelete onDelete={() => handleDelete(todo)} todo={todo} />
             </div>
-        )
-        }
+        )}
     </>
 }
 
