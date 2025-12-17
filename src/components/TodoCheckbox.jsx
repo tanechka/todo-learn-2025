@@ -3,7 +3,7 @@ const TodoCheckbox = ({onToggle, todo}) => {
     return <>
        <input  type='checkbox'
                onChange={()=> {
-                   onToggle()
+                   onToggle(todo)
                }}
                checked={todo.completed}
        />

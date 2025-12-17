@@ -1,5 +1,4 @@
-import TodoCheckbox from './TodoCheckbox';
-import TodoDelete from './TodoDelete';
+import TodoItem from './TodoItem';
 
 const TodoList = ({ todos, onToggle, onDelete }) => {
     if (!todos.length) {
@@ -7,12 +6,8 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
     }
 
     return <>
-        {todos.map((todo) =>
-            <div key={todo.id}>
-               <TodoCheckbox onToggle={() => onToggle(todo)} todo={todo} />
-                {todo.text}
-                <TodoDelete onDelete={() => onDelete(todo)} todo={todo} />
-            </div>
+        {todos.map((todo) => <TodoItem todo={todo} onDelete={onDelete} onToggle={onToggle} />
+
         )}
     </>
 }

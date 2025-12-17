@@ -1,7 +1,7 @@
 const TodoDelete = ({ onDelete, todo }) => {
     return <>
         <button onClick={() => {
-            onDelete(todo.id);
+            onDelete(todo);
         }}>-</button>
     </>
 }

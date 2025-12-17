@@ -37,7 +37,7 @@ function TodosApp() {
             setTodos([
                 ...todos,
                 {
-                    id: todos?.length,
+                    id: crypto.randomUUID(),
                     text: todoText,
                     done: false,
                 }
