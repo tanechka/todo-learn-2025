@@ -22,6 +22,15 @@ function TodosApp() {
     const [todoText, setTodoText] = useState('');
     const [filter, setFilter] = useState(FILTERS.ALL);
 
+    const toggleTodo = (todo) => {
+        const updatedTodos = todos.map((item) => item.id === todo.id ? {...item, completed: !item.completed } : item);
+        setTodos(updatedTodos);
+    };
+
+    const deleteTodo = (todo) => {
+        const updatedTodos = todos.filter((item) => item.id !== todo.id);
+        setTodos(updatedTodos);
+    };
 
     return (
         <div className='app'>
@@ -34,7 +43,8 @@ function TodosApp() {
             />
             <TodoList
                 todos={getFilteredTodos(filter, todos)}
-                setTodos={setTodos}
+                onToggle={toggleTodo}
+                onDelete={deleteTodo}
             />
             <TodoInput
                 todoText={todoText}
