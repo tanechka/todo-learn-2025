@@ -3,7 +3,7 @@ import TodoCheckbox from './TodoCheckbox';
 import TodoDelete from './TodoDelete';
 
 const TodoItem = ({ todo , onToggle, onDelete }) => {
-    const id = useId()
+    const id = useId();
 
     return <div key={todo.id}>
         <TodoCheckbox id={id} onToggle={onToggle} todo={todo} />

@@ -1,4 +1,4 @@
-import FILTERS from './todoConst';
+import { FILTERS } from './todoConst';
 
 const TodoFilterButtons = ({ todos, setFilter, activeCount, completedCount }) => {
     return <div>

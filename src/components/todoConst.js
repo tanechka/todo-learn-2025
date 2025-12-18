@@ -1,3 +1,9 @@
 const FILTERS = { ALL: 'all', ACTIVE: 'active', COMPLETED:'completed' }
 
-export default FILTERS;
+const METHOD = {
+    CRYPTO: 'crypto',
+    NANOID: 'nanoid',
+    TIMESTAMP: 'timestamp',
+}
+
+export  {FILTERS, METHOD};
