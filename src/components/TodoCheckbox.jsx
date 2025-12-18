@@ -1,11 +1,11 @@
-const TodoCheckbox = ({onToggle, todo}) => {
-
+const TodoCheckbox = ({id, onToggle, todo}) => {
     return <>
-       <input  type='checkbox'
-               onChange={()=> {
-                   onToggle(todo)
-               }}
-               checked={todo.completed}
+       <input id={id}
+            type='checkbox'
+            onChange={()=> {
+               onToggle(todo)
+            }}
+            checked={todo.completed}
        />
    </>
 }

@@ -6,9 +6,15 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
     }
 
     return <>
-        {todos.map((todo) => <TodoItem todo={todo} onDelete={onDelete} onToggle={onToggle} />
-
-        )}
+        {
+            todos.map((todo) =>
+                <TodoItem
+                    todo={todo}
+                    onDelete={onDelete}
+                    onToggle={onToggle}
+                />
+            )
+        }
     </>
 }
 
