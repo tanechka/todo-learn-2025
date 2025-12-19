@@ -5,9 +5,9 @@ import TodoDelete from './TodoDelete';
 const TodoItem = ({ todo , onToggle, onDelete }) => {
     const id = useId();
 
-    return <div key={todo.id}>
+    return <div className="todo-item" key={todo.id}>
         <TodoCheckbox id={id} onToggle={onToggle} todo={todo} />
-        <label htmlFor={id}>{todo.text}</label>
+        <label className="todo-text" htmlFor={id}>{todo.text}</label>
         <TodoDelete onDelete={onDelete} todo={todo} />
     </div>
 }

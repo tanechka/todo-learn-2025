@@ -1,13 +1,13 @@
 const TodoCheckbox = ({id, onToggle, todo}) => {
-    return <>
+    return (
        <input id={id}
-            type='checkbox'
+            type="checkbox"
             onChange={()=> {
                onToggle(todo)
             }}
             checked={todo.completed}
        />
-   </>
+    )
 }
 
 export default TodoCheckbox;

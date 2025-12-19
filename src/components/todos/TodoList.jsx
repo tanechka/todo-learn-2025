@@ -5,7 +5,7 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
         return <p className="empty-message">Нет задач</p>;
     }
 
-    return <>
+    return <div className="todo-section">
         {
             todos.map((todo) =>
                 <TodoItem
@@ -15,7 +15,7 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
                 />
             )
         }
-    </>
+    </div>
 }
 
 export default TodoList;

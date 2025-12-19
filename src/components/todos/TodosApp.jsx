@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import TodoInput from '../components/TodoInput';
-import TodoAddButton from '../components/TodoAddButton';
-import TodoList from '../components/TodoList';
-import TodoFilterButtons from '../components/TodoFilterButtons';
+import TodoInput from './TodoInput';
+import TodoAddButton from './TodoAddButton';
+import TodoList from './TodoList';
+import TodoFilterButtons from './TodoFilterButtons';
 import { FILTERS, METHOD } from './todoConst';
 import TodoChooseDifferentID from './TodoChooseDifferentID';
 import { nanoid } from 'nanoid';
