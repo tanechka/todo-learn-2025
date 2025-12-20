@@ -6,4 +6,4 @@ const METHOD = {
     TIMESTAMP: 'timestamp',
 }
 
-export  {FILTERS, METHOD};
+export  { FILTERS, METHOD };

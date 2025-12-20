@@ -1,0 +1,6 @@
+export const TODO_ACTIONS = {
+  ADD: 'ADD_TODO',
+  TOGGLE: 'TOGGLE_TODO',
+  DELETE: 'DELETE_TODO',
+};
+

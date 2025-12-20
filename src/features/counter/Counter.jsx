@@ -4,6 +4,8 @@
 
 import { useState, useReducer } from 'react';
 import React, {Component} from 'react';
+import reducerCounter from './counterReducer';
+import { COUNTER_ACTION, INIT_COUNTER_STATE } from './counterActions';
 
 class CounterClass extends Component {
     state = {
@@ -39,37 +41,18 @@ function CounterFunction() {
     );
 }
 
-// 3. Функциональный с useReducer
-const INIT_STATE = { COUNT: 0 };
-const ACTION = {
-    INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT',
-    RESET: 'RESET',
-}
-
-function reducer(state, action) {
-    switch (action.type) {
-        case ACTION.INCREMENT:
-            return { ...state, count: state.count + 1}
-        case ACTION.DECREMENT:
-            return  { ...state, count: Math.max(0, state.count - 1) }
-        case ACTION.RESET:
-            return  { ...state, count: INIT_STATE.COUNT }
-        default:
-            throw new Error(`Unhandled action type: ${action.type}`);
-    }
-}
-
 function CounterReducer() {
-    const [state, dispatch] = useReducer(reducer, {count: INIT_STATE.COUNT});
+    const [state, dispatch] = useReducer(reducerCounter, {
+        count: INIT_COUNTER_STATE.COUNT
+    });
 
     return (
         <div>
             <h2>useReducer()</h2>
             <p>Count: {state.count}</p>
-            <button onClick={() => dispatch({ type: ACTION.INCREMENT })}>+1</button>
-            <button onClick={() => dispatch({ type: ACTION.DECREMENT })}>-1</button>
-            <button onClick={()=> dispatch({ type: ACTION.RESET })}>Reset</button>
+            <button onClick={() => dispatch({ type: COUNTER_ACTION.INCREMENT })}>+1</button>
+            <button onClick={() => dispatch({ type: COUNTER_ACTION.DECREMENT })}>-1</button>
+            <button onClick={()=> dispatch({ type: COUNTER_ACTION.RESET })}>Reset</button>
         </div>
     )
 
@@ -77,7 +60,7 @@ function CounterReducer() {
 
 export { CounterClass , CounterFunction, CounterReducer };
 
-// OLD VERSION CODE FOR CLASS
+// OLD VERSION CODE EXAMPLE FOR CLASS
 
 // constructor(props) {
 //     super(props);

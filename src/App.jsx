@@ -1,6 +1,6 @@
 import './App.css';
-import TodosApp from './components/todos/TodosApp';
-import CounterApp from './components/counter/CounterApp';
+import TodosApp from './features/todos/TodosApp';
+import CounterApp from './features/counter/CounterApp';
 
 function App() {
     return (

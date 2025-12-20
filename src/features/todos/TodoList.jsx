@@ -1,7 +1,7 @@
 import TodoItem from './TodoItem';
 
 const TodoList = ({ todos, onToggle, onDelete }) => {
-    if (!todos.length) {
+    if (!todos?.length) {
         return <p className="empty-message">Нет задач</p>;
     }
 
