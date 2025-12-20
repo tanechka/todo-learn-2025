@@ -1,21 +1,21 @@
 import { FILTERS } from './todoConst';
 
-const TodoFilterButtons = ({ todos, setFilter, activeCount, completedCount }) => {
+const TodoFilterButtons = ({ onFilter, activeCount, completedCount, allCount }) => {
     return <div className='todo-filter'>
         <button className="filter-btn" onClick={() => {
-            setFilter(FILTERS.ALL);
+            onFilter(FILTERS.ALL);
         }}>
-            Все {todos?.length}
+            Все { allCount }
         </button>
         <button className="filter-btn" onClick={() => {
-            setFilter(FILTERS.ACTIVE);
+            onFilter(FILTERS.ACTIVE);
          }}>
-            Активные {activeCount}
+            Активные { activeCount }
         </button>
         <button className="filter-btn" onClick={() => {
-            setFilter(FILTERS.COMPLETED);
+            onFilter(FILTERS.COMPLETED);
         }}>
-            Выполненные {completedCount}
+            Выполненные { completedCount }
         </button>
     </div>
 }

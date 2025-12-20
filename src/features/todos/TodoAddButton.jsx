@@ -1,6 +1,6 @@
-const TodoAddButton = ({ addTodo }) => {
+const TodoAddButton = ({ onAdd }) => {
     return (
-        <button className="delete-btn" onClick={addTodo}>add</button>
+        <button className="delete-btn" onClick={onAdd}>add</button>
     )
 };
 

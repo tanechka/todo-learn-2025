@@ -7,8 +7,8 @@ const initialTodosState = {
 const todoReducer = (state, actions) => {
     switch (actions.type) {
         case (TODO_ACTIONS.ADD):
-            console.log('ac', state)
             return {
+                ...state,
                 todos: [...state.todos, {
                     id: actions.payload.id,
                     text: actions.payload.text,
@@ -27,6 +27,8 @@ const todoReducer = (state, actions) => {
                     return item.id === actions.payload.id ? {...item, completed: !item.completed } : item
                 })
             }
+        default:
+            return state;
     }
 }
 

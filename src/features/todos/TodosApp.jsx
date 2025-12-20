@@ -1,71 +1,63 @@
-import { useState, useReducer } from 'react';
+import { useState } from 'react';
+import { useTodos } from './useTodos';
+import { METHOD } from './todoConst';
 import TodoInput from './TodoInput';
 import TodoAddButton from './TodoAddButton';
 import TodoList from './TodoList';
 import TodoFilterButtons from './TodoFilterButtons';
-import { FILTERS, METHOD } from './todoConst';
 import TodoChooseDifferentID from './TodoChooseDifferentID';
-import { initialTodosState, todoReducer } from './todoReducer';
-import { getChooseDifferentIDMethod, getFilteredTodos } from './todoUtils';
-import { TODO_ACTIONS } from './todoActions';
 
 function TodosApp() {
-    const [todoText, setTodoText] = useState('');
-    const [filter, setFilter] = useState(FILTERS.ALL);
+    const {
+        todos,
+        stats,
+        filteredTodos,
+        addTodo,
+        toggleTodo,
+        deleteTodo,
+        setFilterStatus,
+    } = useTodos();
+
     const [idMethod, setIdMethod] = useState(METHOD.CRYPTO);
-    const [state, dispatch] = useReducer(todoReducer, initialTodosState);
+    const [todoText, setTodoText] = useState('');
 
-    const toggleTodo = (todo) => {
-        dispatch({
-            type: TODO_ACTIONS.TOGGLE,
-            payload: { id: todo.id }
-        })
+    const toggle = (todo) => {
+        toggleTodo(todo);
     };
 
-    const deleteTodo = (todo) => {
-        dispatch(({
-            type: TODO_ACTIONS.DELETE,
-            payload: { id: todo.id }
-        }))
+    const deleteAction = (todo) => {
+        deleteTodo(todo)
     };
 
-    const addTodo = () => {
-        if(todoText.trim()) {
-            dispatch({
-                type: TODO_ACTIONS.ADD,
-                payload: {
-                    id: getChooseDifferentIDMethod(idMethod),
-                    text: todoText,
-                    completed: false,
-                }
-            })
-            setTodoText('');
-        }
+    const add = () => {
+        addTodo(todoText, idMethod);
+        setTodoText('');
     }
 
     return (
         <div className='app'>
             <h1>Todo List</h1>
             <TodoFilterButtons
-                todos={state.todos}
-                setFilter={setFilter}
-                activeCount={getFilteredTodos(FILTERS.ACTIVE, state.todos)?.length}
-                completedCount={getFilteredTodos(FILTERS.COMPLETED, state.todos)?.length}
+                todos={todos}
+                onFilter={setFilterStatus}
+                allCount={stats.total}
+                activeCount={stats.active}
+                completedCount={stats.completed}
             />
             <TodoChooseDifferentID
                 setIdMethod={setIdMethod}
             />
             <TodoList
-                todos={getFilteredTodos(filter, state.todos)}
-                onToggle={toggleTodo}
-                onDelete={deleteTodo}
+                todos={filteredTodos}
+                onToggle={toggle}
+                onDelete={deleteAction}
             />
             <TodoInput
                 todoText={todoText}
                 setTodoText={setTodoText}
             />
             <TodoAddButton
-                addTodo={addTodo}
+                onAdd={add}
             />
         </div>
     );
