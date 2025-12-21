@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { FILTERS } from './todoConst';
 
 const TodoFilterButtons = ({ onFilter, activeCount, completedCount, allCount }) => {
@@ -19,4 +20,4 @@ const TodoFilterButtons = ({ onFilter, activeCount, completedCount, allCount }) 
         </button>
     </div>
 }
-export default TodoFilterButtons;
+export default memo(TodoFilterButtons);

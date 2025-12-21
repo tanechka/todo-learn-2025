@@ -1,4 +1,4 @@
-import { useReducer, useState, useMemo } from 'react';
+import { useReducer, useState, useMemo, useCallback } from 'react';
 import { TODO_ACTIONS } from './todoActions';
 import { getChooseDifferentIDMethod, getFilteredTodos } from './todoUtils';
 import { todoReducer, initialTodosState } from './todoReducer';
@@ -8,36 +8,51 @@ export function useTodos() {
     const [state, dispatch] = useReducer(todoReducer, initialTodosState);
     const [filter, setFilter] = useState(FILTERS.ALL);
 
-    const addTodo = (text, idMethod) => {
+    const addTodo = useCallback((text, idMethod) => {
         if(text.trim()) {
             dispatch({
                 type: TODO_ACTIONS.ADD,
                 payload: {
                     id: getChooseDifferentIDMethod(idMethod),
-                    text: text,
+                    text: text.trim(),
                     completed: false,
                 }
-            })
+            });
         }
-    };
+    }, []);
 
-    const toggleTodo = (todo) => {
-        dispatch({
-            type: TODO_ACTIONS.TOGGLE,
-            payload: { id: todo.id }
-        })
-    };
+    const toggleTodo = useCallback(
+        (id) => {
+            dispatch({
+                type: TODO_ACTIONS.TOGGLE,
+                payload: { id }
+            })
+        },
+        [dispatch]
+    );
 
-    const deleteTodo = (todo) => {
-        dispatch({
-            type: TODO_ACTIONS.DELETE,
-            payload: { id: todo.id }
-        })
-    };
+    const deleteTodo = useCallback(
+        (id) => {
+            dispatch({
+                type: TODO_ACTIONS.DELETE,
+                payload: { id }
+            })
+        },
+        [dispatch]
+    );
 
-    const setFilterStatus = (filter) => {
-        setFilter(filter)
-    }
+    const setFilterStatus = useCallback(
+        (filter) => {
+            setFilter(filter)
+        },
+        [filter]
+    );
+
+    const stats = useMemo(() => ({
+        total: state.todos.length,
+        completed: state.todos.filter(t => t.completed).length,
+        active: state.todos.filter(t => !t.completed).length,
+    }), [state.todos]);
 
     const filteredTodos = useMemo(() =>
             getFilteredTodos(filter, state.todos),
@@ -47,11 +62,7 @@ export function useTodos() {
     return {
         todos: state.todos,
         filteredTodos: filteredTodos,
-        stats: {
-            total: state.todos.length,
-            completed: getFilteredTodos(FILTERS.COMPLETED, state.todos)?.length,
-            active: getFilteredTodos(FILTERS.ACTIVE, state.todos)?.length,
-        },
+        stats,
         addTodo,
         toggleTodo,
         deleteTodo,

@@ -1,8 +1,8 @@
+import { memo } from 'react';
 import TodoItem from './TodoItem';
 
 const TodoList = ({ todos, onToggle, onDelete }) => {
     if (!todos?.length) {
-        console.log('todos', todos)
         return <p className="empty-message">Нет задач</p>;
     }
 
@@ -19,4 +19,4 @@ const TodoList = ({ todos, onToggle, onDelete }) => {
     </div>
 }
 
-export default TodoList;
+export default memo(TodoList);

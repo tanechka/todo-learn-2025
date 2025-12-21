@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, memo } from 'react';
 
 const TodoChooseDifferentID = ({setIdMethod}) => {
     const id = useId();
@@ -12,4 +12,4 @@ const TodoChooseDifferentID = ({setIdMethod}) => {
     )
 }
 
-export default TodoChooseDifferentID;
+export default memo(TodoChooseDifferentID);

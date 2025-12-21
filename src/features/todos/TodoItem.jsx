@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, memo } from 'react';
 import TodoCheckbox from './TodoCheckbox';
 import TodoDelete from './TodoDelete';
 
@@ -12,4 +12,4 @@ const TodoItem = ({ todo , onToggle, onDelete }) => {
     </div>
 }
 
-export default TodoItem;
+export default memo(TodoItem);

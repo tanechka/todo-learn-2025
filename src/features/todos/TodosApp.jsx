@@ -1,15 +1,13 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTodos } from './useTodos';
 import { METHOD } from './todoConst';
-import TodoInput from './TodoInput';
-import TodoAddButton from './TodoAddButton';
+import TodoAdd from './TodoAdd';
 import TodoList from './TodoList';
 import TodoFilterButtons from './TodoFilterButtons';
 import TodoChooseDifferentID from './TodoChooseDifferentID';
 
 function TodosApp() {
     const {
-        todos,
         stats,
         filteredTodos,
         addTodo,
@@ -21,24 +19,29 @@ function TodosApp() {
     const [idMethod, setIdMethod] = useState(METHOD.CRYPTO);
     const [todoText, setTodoText] = useState('');
 
-    const toggle = (todo) => {
-        toggleTodo(todo);
-    };
+    const toggle = useCallback((id) => {
+        toggleTodo(id);
+    }, [toggleTodo]);
 
-    const deleteAction = (todo) => {
-        deleteTodo(todo)
-    };
+    const deleteAction = useCallback((id) => {
+        deleteTodo(id);
+    }, [deleteTodo]);
 
-    const add = () => {
-        addTodo(todoText, idMethod);
-        setTodoText('');
-    }
+    const add = useCallback(() => {
+        if (todoText.trim()) {
+            addTodo(todoText, idMethod);
+            setTodoText('');
+        }
+    }, [addTodo, todoText, idMethod]);
+
+    const handleSetTodoText = useCallback((value) => {
+        setTodoText(value);
+    }, []);
 
     return (
         <div className='app'>
             <h1>Todo List</h1>
             <TodoFilterButtons
-                todos={todos}
                 onFilter={setFilterStatus}
                 allCount={stats.total}
                 activeCount={stats.active}
@@ -52,11 +55,9 @@ function TodosApp() {
                 onToggle={toggle}
                 onDelete={deleteAction}
             />
-            <TodoInput
+            <TodoAdd
                 todoText={todoText}
-                setTodoText={setTodoText}
-            />
-            <TodoAddButton
+                setTodoText={handleSetTodoText}
                 onAdd={add}
             />
         </div>
