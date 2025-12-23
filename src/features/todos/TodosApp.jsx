@@ -1,27 +1,48 @@
-import { useState, useCallback } from 'react';
-import { useTodos } from './useTodos';
-import { METHOD } from './todoConst';
+import { useCallback, useMemo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import TodoAdd from './TodoAdd';
 import TodoList from './TodoList';
 import TodoFilterButtons from './TodoFilterButtons';
 import TodoChooseDifferentID from './TodoChooseDifferentID';
+import useTodoStore from './todoSotre';
+import useUIStore from './uiStore';
+import {getFilteredTodos} from './todoUtils';
 
 function TodosApp() {
     const {
-        stats,
-        filteredTodos,
-        addTodo,
+        todos,
+        filter,
+        idMethod,
         toggleTodo,
         deleteTodo,
-        setFilterStatus,
-    } = useTodos();
+        addTodo,
+        setFilter,
+        setIdMethod,
+    } = useTodoStore(useShallow((state) => ({
+        todos: state.todos,
+        filter: state.filter,
+        idMethod: state.idMethod,
+        todoText: state.todoText,
+        toggleTodo: state.toggleTodo,
+        deleteTodo: state.deleteTodo,
+        addTodo: state.addTodo,
+        setFilter: state.setFilter,
+        setIdMethod: state.setIdMethod,
+    })));
 
-    const [idMethod, setIdMethod] = useState(METHOD.CRYPTO);
-    const [todoText, setTodoText] = useState('');
+    const { todoText, setTodoText } = useUIStore();
 
-    const toggle = useCallback((id) => {
-        toggleTodo(id);
-    }, [toggleTodo]);
+    const filteredTodos = useMemo(() => {
+        // Логика фильтрации xx
+        return getFilteredTodos(filter, todos);
+    }, [todos, filter]);
+
+    const stats = useMemo(() => {
+        const total = todos.length;
+        const completed = todos.filter(t => t.completed).length;
+
+        return { total, completed, active: total - completed };
+    }, [todos]);
 
     const deleteAction = useCallback((id) => {
         deleteTodo(id);
@@ -42,7 +63,7 @@ function TodosApp() {
         <div className='app'>
             <h1>Todo List</h1>
             <TodoFilterButtons
-                onFilter={setFilterStatus}
+                onFilter={setFilter}
                 allCount={stats.total}
                 activeCount={stats.active}
                 completedCount={stats.completed}
@@ -52,7 +73,7 @@ function TodosApp() {
             />
             <TodoList
                 todos={filteredTodos}
-                onToggle={toggle}
+                onToggle={toggleTodo}
                 onDelete={deleteAction}
             />
             <TodoAdd
