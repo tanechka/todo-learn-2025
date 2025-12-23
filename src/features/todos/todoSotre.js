@@ -30,7 +30,6 @@ export const useTodoStore = create(
                         text: text.trim(),
                         completed: false,
                     }],
-                    todoText: ''
                 })),
 
                 toggleTodo: (id) => set((state) => ({

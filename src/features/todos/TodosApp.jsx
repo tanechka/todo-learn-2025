@@ -22,7 +22,6 @@ function TodosApp() {
         todos: state.todos,
         filter: state.filter,
         idMethod: state.idMethod,
-        todoText: state.todoText,
         toggleTodo: state.toggleTodo,
         deleteTodo: state.deleteTodo,
         addTodo: state.addTodo,
@@ -33,7 +32,6 @@ function TodosApp() {
     const { todoText, setTodoText } = useUIStore();
 
     const filteredTodos = useMemo(() => {
-        // Логика фильтрации xx
         return getFilteredTodos(filter, todos);
     }, [todos, filter]);
 
