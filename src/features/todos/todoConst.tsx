@@ -1,4 +1,8 @@
-const FILTERS = { ALL: 'all', ACTIVE: 'active', COMPLETED:'completed' }
+const FILTERS = {
+    ALL: 'all',
+    ACTIVE: 'active',
+    COMPLETED:'completed'
+}
 
 const METHOD = {
     CRYPTO: 'crypto',

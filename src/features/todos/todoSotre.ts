@@ -2,13 +2,27 @@ import { create } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import { FILTERS, METHOD } from './todoConst';
 import { getChooseDifferentIDMethod, getFilteredTodos } from './todoUtils';
-
+import {FilterType, IdMethodType, Stats, Todo} from './todo.types';
 
 interface TodoActions {
-    filteredTodos: () => void;
+  stats: () => Stats;
+  filteredTodos: () => Todo[];
+  addTodo: (text: string) => void;
+  toggleTodo: (id: string) => void;
+  deleteTodo: (id: string) => void;
+  setFilter(filter: FilterType): () => void;
+  setIdMethod(method: IdMethodType): () => void;
 }
 
-export const useTodoStore = create(
+interface TodoState {
+  todos: Todo[];
+  filter: FilterType;
+  idMethod: IdMethodType;
+}
+
+type TodoStore = TodoState & TodoActions;
+
+export const useTodoStore = create<TodoStore>()(
     devtools(
         persist(
             (set, get) => ({
@@ -18,6 +32,7 @@ export const useTodoStore = create(
 
                 filteredTodos: () => {
                     const { todos, filter } = get();
+
                     return getFilteredTodos(filter, todos);
                 },
 

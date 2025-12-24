@@ -1,8 +1,15 @@
 import { useId, memo } from 'react';
+import { Todo } from './todo.types';
 import TodoCheckbox from './TodoCheckbox';
 import TodoDelete from './TodoDelete';
 
-const TodoItem = ({ todo , onToggle, onDelete }) => {
+interface TodoItemProps {
+    todo: Todo;
+    onToggle: (id: string) => void;
+    onDelete: (id: string) => void;
+}
+
+const TodoItem = ({ todo , onToggle, onDelete }: TodoItemProps) => {
     const id = useId();
 
     return <div key={todo.id} className="todo-item" >
