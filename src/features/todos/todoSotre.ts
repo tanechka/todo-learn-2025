@@ -3,6 +3,11 @@ import { persist, devtools } from 'zustand/middleware';
 import { FILTERS, METHOD } from './todoConst';
 import { getChooseDifferentIDMethod, getFilteredTodos } from './todoUtils';
 
+
+interface TodoActions {
+    filteredTodos: () => void;
+}
+
 export const useTodoStore = create(
     devtools(
         persist(
