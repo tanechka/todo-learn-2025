@@ -27,7 +27,7 @@ describe('TodoItem', () => {
       />
     );
 
-    expect(screen.getByText(mockTodo.text)).toBeInTheDocument();
+    expect(screen.queryByText(mockTodo.text)).toBeInTheDocument();
   });
 
   test('should call the onToggle handler', () => {
@@ -39,7 +39,7 @@ describe('TodoItem', () => {
       />
     );
 
-    const checkbox = screen.getByRole('checkbox');
+    const checkbox = screen.getByRole('checkbox', { name: 'checkbox' });
     fireEvent.click(checkbox);
 
     expect(mockOnToggle).toHaveBeenCalledTimes(1);
@@ -55,10 +55,10 @@ describe('TodoItem', () => {
       />
     );
 
-    const deleteButton = screen.getByRole('button');
+    const deleteButton = screen.getByRole('button', { name: /delete/i });
     fireEvent.click(deleteButton);
 
     expect(mockOnDelete).toHaveBeenCalledTimes(1);
-    expect(mockOnDelete).toHaveBeenCalledWith(mockTodo.id);
+    expect(mockOnDelete).toHaveBeenCalledWith(String(mockTodo.id));
   });
 });

@@ -1,6 +1,5 @@
 import { METHOD, FILTERS } from './todoConst';
 
-
 export type Todo = {
   id: string;
   text: string;
