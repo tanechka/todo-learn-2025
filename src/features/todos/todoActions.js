@@ -3,4 +3,3 @@ export const TODO_ACTIONS = {
   TOGGLE: 'TOGGLE_TODO',
   DELETE: 'DELETE_TODO',
 };
-
