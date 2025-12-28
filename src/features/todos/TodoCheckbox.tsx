@@ -1,6 +1,7 @@
 const TodoCheckbox = ({id, onToggle, todo}) => {
     return (
         <input id={id}
+               aria-label="checkbox"
                type="checkbox"
                onChange={()=> {
                    onToggle(todo.id)

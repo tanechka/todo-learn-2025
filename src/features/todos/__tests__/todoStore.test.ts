@@ -1,13 +1,16 @@
 import { useTodoStore } from '../todoSotre';
 import {FILTERS, METHOD} from '../todoConst';
+import {TodoState, FilterType} from '../todo.types';
 
 describe('todoStore', () => {
+
+  const initialState: TodoState = {
+    todos: [],
+    filter: FILTERS.ALL
+  };
+
   beforeEach(() => {
-    useTodoStore.setState({
-      todos: [],
-      filter: FILTERS.ALL,
-      idMethod: METHOD.CRYPTO,
-    });
+    useTodoStore.setState(initialState);
   });
 
   test('addTodo adds a new todo', () => {
@@ -61,16 +64,16 @@ describe('todoStore', () => {
     const todos = useTodoStore.getState().todos;
     store.toggleTodo(todos[2].id);
 
-    store.setFilter(FILTERS.ALL);
+    store.setFilter(<FilterType>FILTERS.ALL);
     const allTodos = store.filteredTodos();
     expect(allTodos).toHaveLength(3);
 
-    store.setFilter(FILTERS.ACTIVE);
+    store.setFilter(<FilterType>FILTERS.ACTIVE);
     const activeTodos = store.filteredTodos();
     expect(activeTodos).toHaveLength(2);
     expect(activeTodos.every(t => !t.completed)).toBe(true);
 
-    store.setFilter(FILTERS.COMPLETED);
+    store.setFilter(<FilterType>FILTERS.COMPLETED);
     const completedTodos = store.filteredTodos();
     expect(completedTodos).toHaveLength(1);
     expect(completedTodos[0].completed).toBe(true);

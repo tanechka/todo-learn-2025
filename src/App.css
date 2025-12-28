@@ -24,7 +24,6 @@
   border-color: #007bff;
 }
 
-/* Задачи */
 .todo-item {
   display: flex;
   align-items: center;
@@ -65,4 +64,11 @@
 
 .todo-section {
   margin: 30px 10px;
+}
+
+.themes-button {
+  padding: 8px 16px;
+  border: none;
+  borderRadius: 4px;
+  cursor: pointer;
 }
