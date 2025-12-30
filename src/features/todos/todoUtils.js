@@ -1,5 +1,4 @@
-import { FILTERS, METHOD } from './todoConst';
-import { nanoid } from 'nanoid';
+import { FILTERS } from './todoConst';
 
 export const getFilteredTodos = (filter, todos) => {
     switch (filter) {
@@ -11,16 +10,3 @@ export const getFilteredTodos = (filter, todos) => {
             return todos;
     }
 };
-
-export const getChooseDifferentIDMethod = (method) => {
-    switch (method) {
-        case METHOD.CRYPTO:
-            return crypto.randomUUID();
-        case METHOD.NANOID:
-            return nanoid()
-        case METHOD.TIMESTAMP:
-            return Date.now()
-        default:
-            return crypto.randomUUID();
-    }
-}

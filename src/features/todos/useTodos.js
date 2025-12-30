@@ -1,6 +1,6 @@
 import { useReducer, useState, useMemo, useCallback } from 'react';
 import { TODO_ACTIONS } from './todoActions';
-import { getChooseDifferentIDMethod, getFilteredTodos } from './todoUtils';
+import { getFilteredTodos } from './todoUtils';
 import { todoReducer, initialTodosState } from './todoReducer';
 import { FILTERS } from './todoConst';
 
@@ -13,7 +13,7 @@ export function useTodos() {
             dispatch({
                 type: TODO_ACTIONS.ADD,
                 payload: {
-                    id: getChooseDifferentIDMethod(idMethod),
+                    id: Date.now().toString(),
                     text: text.trim(),
                     completed: false,
                 }

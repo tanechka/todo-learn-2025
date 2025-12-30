@@ -4,10 +4,4 @@ const FILTERS = {
     COMPLETED:'completed'
 }
 
-const METHOD = {
-    CRYPTO: 'crypto',
-    NANOID: 'nanoid',
-    TIMESTAMP: 'timestamp',
-}
-
-export  { FILTERS, METHOD };
+export  { FILTERS };

@@ -1,32 +1,31 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import TodoAdd from './TodoAdd';
 import TodoList from './TodoList';
 import TodoFilterButtons from './TodoFilterButtons';
-import TodoChooseDifferentID from './TodoChooseDifferentID';
-import useTodoStore from './todoSotre';
+import useTodoStore from './todoStore';
 import useUIStore from './uiStore';
-import {getFilteredTodos} from './todoUtils';
+import { getFilteredTodos } from './todoUtils';
 
 function TodosApp() {
     const {
         todos,
         filter,
-        idMethod,
+        loading,
         toggleTodo,
         deleteTodo,
         addTodo,
         setFilter,
-        setIdMethod,
+        fetchTodos,
     } = useTodoStore(useShallow((state) => ({
         todos: state.todos,
         filter: state.filter,
-        idMethod: state.idMethod,
+        loading: state.loading,
         toggleTodo: state.toggleTodo,
         deleteTodo: state.deleteTodo,
         addTodo: state.addTodo,
         setFilter: state.setFilter,
-        setIdMethod: state.setIdMethod,
+        fetchTodos: state.fetchTodos,
     })));
 
     const { todoText, setTodoText } = useUIStore();
@@ -48,14 +47,20 @@ function TodosApp() {
 
     const add = useCallback(() => {
         if (todoText.trim()) {
-            addTodo(todoText, idMethod);
+            addTodo(todoText);
             setTodoText('');
         }
-    }, [addTodo, todoText, idMethod]);
+    }, [addTodo, todoText]);
 
     const handleSetTodoText = useCallback((value) => {
         setTodoText(value);
     }, []);
+
+    useEffect(() => {
+        fetchTodos();
+    }, [fetchTodos]);
+
+    if (loading) return <div>Loading...</div>;
 
     return (
         <div className='app'>
@@ -65,9 +70,6 @@ function TodosApp() {
                 allCount={stats.total}
                 activeCount={stats.active}
                 completedCount={stats.completed}
-            />
-            <TodoChooseDifferentID
-                setIdMethod={setIdMethod}
             />
             <TodoList
                 todos={filteredTodos}

@@ -1,4 +1,4 @@
-import { useTodoStore } from '../todoSotre';
+import { useTodoStore } from '../todoStore';
 import {FILTERS, METHOD} from '../todoConst';
 import {TodoState, FilterType} from '../todo.types';
 

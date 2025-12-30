@@ -12,7 +12,7 @@ function DarkModeToggle() {
 
   return (
     <button
-      class="themes-button"
+      className={"themes-button"}
       onClick={() => setIsDark(!isDark)}
       style={{
         background,
